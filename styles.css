@@ -1278,8 +1278,6 @@ tfoot td {
 
 /* Burst Alert Section */
 .ledger-section.burst-alert {
-  background: linear-gradient(135deg, #FEF2F2 0%, #FFF5F5 100%);
-  border: 1px solid #FCA5A5;
   border-radius: var(--radius-md);
   padding: 12px;
   margin-bottom: 16px;
@@ -1287,19 +1285,17 @@ tfoot td {
 
 .ledger-section.burst-alert .burst-title {
   color: #DC2626;
-  border-bottom-color: #FECACA;
 }
 
 .pane-row.burst {
-  background: #FEF2F2;
   border-radius: var(--radius-sm);
   padding: 6px 8px;
   margin: 4px -8px;
 }
 
 .pane-row.burst span:first-child {
-  color: #DC2626;
-  font-weight: 600;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .burst-amount {
