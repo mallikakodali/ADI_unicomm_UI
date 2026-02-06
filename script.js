@@ -216,92 +216,75 @@ function toggleMonthlyColumns() {
 // Incentives are fully consumed by Month 2
 
 const monthlyData = {
-  // Monthly consumption values (cumulative) - FIFO consumption of incentives
-  // Order: OTD ($40k) → Comp ($15k) → Prepaid Rollover ($20k)
-  // Total applied incentives: $75,000
-  // Monthly gross = ~$73,912, then Total Commit is drawn
+  // Monthly consumption values (cumulative) - Contract: Feb 2026 - Feb 2027
+  // OTD ($10k) applied in first month
+  // Consumption data: Compute + Support (18% of compute), minus OTD in first month
   consumption: {
-    'may-2025': { 
-      cloud: 50733, support: 9012, dse: 14167, 
-      otd: 40000, comp: 15000, prepaidRollover: 18912,
-      net: 0  // All covered by incentives ($73,912 applied)
-    },
-    'jun-2025': { 
-      cloud: 101466, support: 18024, dse: 28334, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 72824  // $75k incentives fully depleted
-    },
-    'jul-2025': { 
-      cloud: 152199, support: 27036, dse: 42501, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 146736
-    },
-    'aug-2025': { 
-      cloud: 202932, support: 36048, dse: 56668, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 220648
-    },
-    'sep-2025': { 
-      cloud: 253665, support: 45060, dse: 70835, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 294560
-    },
-    'oct-2025': { 
-      cloud: 304398, support: 54072, dse: 85002, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 368472
-    },
-    'nov-2025': { 
-      cloud: 355131, support: 63084, dse: 99169, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 442384
-    },
-    'dec-2025': { 
-      cloud: 405864, support: 72096, dse: 113336, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 516296
-    },
-    'jan-2026': { 
-      cloud: 456597, support: 81108, dse: 127503, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 590208
-    },
     'feb-2026': { 
-      cloud: 507330, support: 90120, dse: 141670, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 664120
+      cloud: 50941, support: 5094, dse: 0, 
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 46035  // 50941 + 5094 - 10000
     },
     'mar-2026': { 
-      cloud: 558063, support: 99132, dse: 155837, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 738032
+      cloud: 110330, support: 11033, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 111363  // 46035 + 65328
     },
     'apr-2026': { 
-      cloud: 608800, support: 108144, dse: 170000, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000,
-      net: 811944
+      cloud: 163086, support: 16309, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 169395  // 111363 + 58032
+    },
+    'may-2026': { 
+      cloud: 217310, support: 21731, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 229041  // 169395 + 59646
+    },
+    'jun-2026': { 
+      cloud: 267785, support: 26779, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 284564  // 229041 + 55523
+    },
+    'jul-2026': { 
+      cloud: 321324, support: 32133, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 343457  // 284564 + 58893
+    },
+    'aug-2026': { 
+      cloud: 376914, support: 37692, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 404606  // 343457 + 61149
+    },
+    'sep-2026': { 
+      cloud: 434354, support: 43436, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 467790  // 404606 + 63184
+    },
+    'oct-2026': { 
+      cloud: 487884, support: 48788, dse: 0,
+      otd: 10000, comp: 0, prepaidRollover: 0,
+      net: 526672  // 467790 + 58882 (MTD)
     },
     'all': { 
-      cloud: 608800, support: 108144, dse: 170000, 
-      otd: 40000, comp: 15000, prepaidRollover: 20000, 
-      net: 811944
+      cloud: 487884, support: 48788, dse: 0, 
+      otd: 10000, comp: 0, prepaidRollover: 0, 
+      net: 526672
     }
   },
-  // Monthly billing values (cumulative) - billing happens at specific times
+  // Monthly billing values (cumulative)
+  // Prepaid at start: Direct $100k, AWS MP $50k, Azure P3 $500k = $650k
+  // In-deal burst: $8,041 (Azure Premium OpenAI exceeds Direct prepaid in Oct)
   billing: {
-    'may-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 0, sap: 0, total: 2182000 },
-    'jun-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 0, sap: 0, total: 2182000 },
-    'jul-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 0, sap: 0, total: 2182000 },
-    'aug-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 0, sap: 2000, total: 2184000 },
-    'sep-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 0, sap: 2000, total: 2184000 },
-    'oct-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 0, sap: 2000, total: 2184000 },
-    'nov-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 50000, sap: 4000, total: 2236000 },
-    'dec-2025': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 50000, sap: 4000, total: 2236000 },
-    'jan-2026': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 50000, sap: 4000, total: 2236000 },
-    'feb-2026': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 100000, sap: 6000, total: 2288000 },
-    'mar-2026': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 100000, sap: 6000, total: 2288000 },
-    'apr-2026': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 100000, sap: 8000, total: 2290000 },
-    'all': { awsMP: 1000000, databricks: 1082000, p3: 100000, azureUncontrol: 100000, sap: 8000, total: 2290000 }
+    'feb-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'mar-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'apr-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'may-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'jun-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'jul-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'aug-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'sep-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'oct-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 8041, total: 658041 },
+    'all': { direct: 100000, awsMP: 50000, p3: 500000, burst: 8041, total: 658041 }
   }
 };
 
@@ -334,7 +317,7 @@ function updateLedgerBalance(month) {
   // Update main Ledger Balance Result
   const allPaneRows = ledgerPane.querySelectorAll('.pane-rows');
   
-  // First pane-rows is the main result (Total Billed, Total Consumption, Difference)
+  // First pane-rows (index 0) is the main result (Total Billed, Total Consumption, Difference)
   if (allPaneRows[0]) {
     const mainRows = allPaneRows[0].querySelectorAll('.pane-row');
     if (mainRows.length >= 3) {
@@ -344,30 +327,28 @@ function updateLedgerBalance(month) {
     }
   }
   
-  // Second pane-rows is inside first ledger-section (Total Net Consumption breakdown)
+  // Second pane-rows (index 1) is Total Net Consumption breakdown
   if (allPaneRows[1]) {
     const consumptionRows = allPaneRows[1].querySelectorAll('.pane-row');
-    if (consumptionRows.length >= 7) {
+    if (consumptionRows.length >= 5) {
       consumptionRows[0].querySelector('span:last-child').textContent = formatCurrency(consumption.cloud);
       consumptionRows[1].querySelector('span:last-child').textContent = formatCurrency(consumption.support);
       consumptionRows[2].querySelector('span:last-child').textContent = formatCurrency(consumption.dse);
       consumptionRows[3].querySelector('span:last-child').textContent = '($' + consumption.otd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ')';
-      consumptionRows[4].querySelector('span:last-child').textContent = '($' + consumption.comp.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ')';
-      consumptionRows[5].querySelector('span:last-child').textContent = '($' + consumption.prepaidRollover.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ')';
-      consumptionRows[6].querySelector('span:last-child').textContent = formatCurrency(consumption.net);
+      consumptionRows[4].querySelector('span:last-child').textContent = formatCurrency(consumption.net);
     }
   }
   
-  // Third pane-rows is inside second ledger-section (Total Billed breakdown)
+  // Third pane-rows (index 2) is Total Billed breakdown
   if (allPaneRows[2]) {
     const billingRows = allPaneRows[2].querySelectorAll('.pane-row');
-    if (billingRows.length >= 6) {
-      billingRows[0].querySelector('span:last-child').textContent = formatCurrency(billing.awsMP);
-      billingRows[1].querySelector('span:last-child').textContent = formatCurrency(billing.databricks);
+    if (billingRows.length >= 5) {
+      billingRows[0].querySelector('span:last-child').textContent = formatCurrency(billing.direct);
+      billingRows[1].querySelector('span:last-child').textContent = formatCurrency(billing.awsMP);
       billingRows[2].querySelector('span:last-child').textContent = formatCurrency(billing.p3);
-      billingRows[3].querySelector('span:last-child').textContent = formatCurrency(billing.azureUncontrol);
-      billingRows[4].querySelector('span:last-child').textContent = formatCurrency(billing.sap);
-      billingRows[5].querySelector('span:last-child').textContent = formatCurrency(billing.total);
+      // Burst row - show amount or $0.00 if no burst
+      billingRows[3].querySelector('span:last-child').textContent = formatCurrency(billing.burst);
+      billingRows[4].querySelector('span:last-child').textContent = formatCurrency(billing.total);
     }
   }
 }
@@ -379,13 +360,11 @@ function updateCTDReconciliation(month) {
   
   if (!consumption || !billing) return;
   
-  const difference = billing.total - consumption.net;
-  const isBurst = consumption.net > billing.total;
-  const burstAmount = isBurst ? consumption.net - billing.total : 0;
+  // In-deal burst only shows in Oct when Azure Premium OpenAI exceeds Direct prepaid
+  const hasBurst = billing.burst > 0;
   
-  // Find CTD Reconciliation section (first recon-two-pane-grid in ledger content)
-  const ctdSection = document.querySelector('#ledger-content .section-header-row + .recon-two-pane-grid') ||
-                     document.querySelector('#ledger-content .recon-two-pane-grid');
+  // Find CTD Reconciliation section
+  const ctdSection = document.querySelector('#ledger-content .recon-two-pane-grid');
   
   if (ctdSection) {
     const reconPanes = ctdSection.querySelectorAll('.recon-pane');
@@ -394,9 +373,17 @@ function updateCTDReconciliation(month) {
     if (reconPanes[0]) {
       const rows = reconPanes[0].querySelectorAll('.pane-row');
       if (rows.length >= 3) {
-        rows[0].querySelector('span:last-child').textContent = formatCurrency(consumption.net);
-        rows[1].querySelector('span:last-child').textContent = formatCurrency(billing.total);
-        rows[2].querySelector('span:last-child').textContent = isBurst ? 'Burst (Consumption > Billed)' : 'No Burst (Billed > Consumption)';
+        rows[0].querySelector('span:last-child').textContent = formatCurrency(billing.total);
+        rows[1].querySelector('span:last-child').textContent = formatCurrency(consumption.net);
+        // CTD Status
+        const statusSpan = rows[2].querySelector('span:last-child');
+        if (hasBurst) {
+          statusSpan.textContent = 'In-Deal Burst';
+          statusSpan.className = 'burst-amount';
+        } else {
+          statusSpan.textContent = 'No Burst';
+          statusSpan.className = '';
+        }
       }
     }
     
@@ -404,7 +391,13 @@ function updateCTDReconciliation(month) {
     if (reconPanes[1]) {
       const burstRow = reconPanes[1].querySelector('.pane-row.total span:last-child');
       if (burstRow) {
-        burstRow.textContent = isBurst ? formatCurrency(burstAmount) : 'N/A';
+        if (hasBurst) {
+          burstRow.textContent = formatCurrency(billing.burst);
+          burstRow.className = 'burst-amount';
+        } else {
+          burstRow.textContent = 'N/A';
+          burstRow.className = '';
+        }
       }
     }
   }
@@ -488,66 +481,37 @@ const billingDetailData = {
     totalItems: 1,
     totalGross: '$1,000,000.00'
   },
-  'indeal-burst-feb': {
-    id: 'burst-2026-002',
+  'indeal-burst-oct': {
+    id: 'burst-2026-010',
     status: 'Draft',
     statusClass: 'draft',
-    billingPeriod: 'Feb 1 - 28, 2026',
-    postingPeriod: 'Feb 2026',
-    postingDate: 'Feb 28, 2026',
-    billingDate: 'Mar 1, 2026',
+    billingTag: 'In-deal Burst',
+    billingTagClass: 'in-deal',
+    billingPeriod: 'Oct 1 - 31, 2026',
+    postingPeriod: 'Oct 2026',
+    postingDate: 'Oct 31, 2026',
+    billingDate: 'Nov 1, 2026',
     nsIdentifier: '--',
-    nsSalesOrderId: '17292138',
+    nsSalesOrderId: '--',
     nsClass: 'MC',
     nsIntegration: 'Will integrate to NetSuite',
     nsIntegrationClass: 'integrate',
     reseller: '--',
     isCommit: false,
     items: [
-      { sku: 'DB-BURST-COMPUTE', desc: 'Premium All-Purpose Compute', cloud: 'AWS', qty: '12,456.231', price: '$0.25', gross: '$3,114.06', net: '$3,114.06' },
-      { sku: 'DB-BURST-COMPUTE-PHT', desc: 'Premium All-Purpose Compute (Photon)', cloud: 'AWS', qty: '5,373.420', price: '$0.25', gross: '$1,343.36', net: '$1,343.36' },
-      { sku: 'DB-BURST-JOBS', desc: 'Premium Jobs Compute', cloud: 'AWS', qty: '1,074.481', price: '$0.06', gross: '$64.47', net: '$64.47' },
-      { sku: 'DB-BURST-SERVERLESS', desc: 'Premium Serverless Compute', cloud: 'AWS', qty: '2,916.821', price: '$0.17', gross: '$495.86', net: '$495.86' },
-      { sku: 'DB-BURST-SQL', desc: 'Premium Serverless SQL Compute', cloud: 'AWS', qty: '0.198', price: '$0.36', gross: '$0.07', net: '$0.07' },
-      { sku: 'DB-BURST-STORAGE', desc: 'Premium Databricks Storage', cloud: 'AWS', qty: '0.642', price: '$1.08', gross: '$0.69', net: '$0.69' }
+      { sku: 'DB-BURST-INDEAL', desc: 'In-Deal Burst - Direct Channel', cloud: 'Direct', qty: '1.000', price: '$8,041.00', gross: '$8,041.00', net: '$8,041.00' }
     ],
-    totalItems: 6,
-    totalGross: '$5,018.46',
-    totalNet: '$5,018.46'
+    totalItems: 1,
+    totalGross: '$8,041.00',
+    totalNet: '$8,041.00'
   },
-  'drawdown-aws-jan': {
-    id: 'drawdown-2026-001',
+  // Feb 2026: Compute $50,941 (AWS $5,441, Azure $45,500 incl OpenAI $9,169), Support $5,094
+  'drawdown-feb-2026': {
+    id: 'drawdown-2026-002',
     status: 'Finalized',
     statusClass: 'finalized',
-    billingPeriod: 'Jan 1 - 31, 2026',
-    postingPeriod: 'Jan 2026',
-    postingDate: 'Jan 31, 2026',
-    billingDate: 'Feb 1, 2026',
-    nsIdentifier: '--',
-    nsSalesOrderId: '--',
-    nsClass: 'MC',
-    nsIntegration: 'Will NOT integrate to NetSuite',
-    nsIntegrationClass: 'no-integrate',
-    reseller: '--',
-    isCommit: false,
-    isDrawdown: true,
-    items: [
-      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '156,892.41', price: '$0.25', gross: '$39,223.10', net: 'N/A' },
-      { sku: 'AWS-PREMIUM-COMPUTE-PHT', desc: 'AWS Premium All-Purpose Compute (Photon)', cloud: 'AWS', qty: '42,315.68', price: '$0.25', gross: '$10,578.92', net: 'N/A' },
-      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '187,448.10', price: '$0.06', gross: '$11,246.89', net: 'N/A' },
-      { sku: 'AWS-PREMIUM-JOBS-PHT', desc: 'AWS Premium Jobs Compute (Photon)', cloud: 'AWS', qty: '21,335.80', price: '$0.05', gross: '$1,066.79', net: 'N/A' },
-      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '24,118.20', price: '$0.17', gross: '$4,100.09', net: 'N/A' },
-      { sku: 'AWS-SERVERLESS-SQL', desc: 'AWS Premium Serverless SQL Compute', cloud: 'AWS', qty: '5,955.10', price: '$0.36', gross: '$2,143.84', net: 'N/A' },
-      { sku: 'AWS-STORAGE', desc: 'AWS Premium Databricks Storage', cloud: 'AWS', qty: '277,618.50', price: '$0.02', gross: '$5,552.37', net: 'N/A' }
-    ],
-    totalItems: 7,
-    totalGross: '$73,912.00',
-    totalNet: 'N/A'
-  },
-  'drawdown-aws-feb': {
-    id: 'drawdown-2026-002',
-    status: 'Draft',
-    statusClass: 'draft',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
     billingPeriod: 'Feb 1 - 28, 2026',
     postingPeriod: 'Feb 2026',
     postingDate: 'Feb 28, 2026',
@@ -561,16 +525,281 @@ const billingDetailData = {
     isCommit: false,
     isDrawdown: true,
     items: [
-      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '156,892.41', price: '$0.25', gross: '$39,223.10', net: 'N/A' },
-      { sku: 'AWS-PREMIUM-COMPUTE-PHT', desc: 'AWS Premium All-Purpose Compute (Photon)', cloud: 'AWS', qty: '42,315.68', price: '$0.25', gross: '$10,578.92', net: 'N/A' },
-      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '187,448.10', price: '$0.06', gross: '$11,246.89', net: 'N/A' },
-      { sku: 'AWS-PREMIUM-JOBS-PHT', desc: 'AWS Premium Jobs Compute (Photon)', cloud: 'AWS', qty: '21,335.80', price: '$0.05', gross: '$1,066.79', net: 'N/A' },
-      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '24,118.20', price: '$0.17', gross: '$4,100.09', net: 'N/A' },
-      { sku: 'AWS-SERVERLESS-SQL', desc: 'AWS Premium Serverless SQL Compute', cloud: 'AWS', qty: '5,955.10', price: '$0.36', gross: '$2,143.84', net: 'N/A' },
-      { sku: 'AWS-STORAGE', desc: 'AWS Premium Databricks Storage', cloud: 'AWS', qty: '277,618.50', price: '$0.02', gross: '$5,552.37', net: 'N/A' }
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '9,169.00', price: '$1.00', gross: '$9,169.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '87,594.00', price: '$0.25', gross: '$21,898.50', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '120,525.00', price: '$0.06', gross: '$7,231.50', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '20,003.00', price: '$0.36', gross: '$7,201.00', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '13,082.40', price: '$0.25', gross: '$3,270.60', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '18,170.00', price: '$0.06', gross: '$1,090.20', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '6,354.12', price: '$0.17', gross: '$1,080.20', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,094.00', gross: '$5,094.00', net: 'N/A' }
     ],
-    totalItems: 7,
-    totalGross: '$73,912.00',
+    totalItems: 8,
+    totalGross: '$56,035.00',
+    totalNet: 'N/A'
+  },
+  // Mar 2026: Compute $59,389 (AWS $5,491, Azure $53,898 incl OpenAI $13,066), Support $5,939
+  'drawdown-mar-2026': {
+    id: 'drawdown-2026-003',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Mar 1 - 31, 2026',
+    postingPeriod: 'Mar 2026',
+    postingDate: 'Mar 31, 2026',
+    billingDate: 'Apr 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '13,066.00', price: '$1.00', gross: '$13,066.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '98,398.00', price: '$0.25', gross: '$24,599.50', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '135,542.00', price: '$0.06', gross: '$8,132.50', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '22,222.00', price: '$0.36', gross: '$8,100.00', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '13,254.80', price: '$0.25', gross: '$3,313.70', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '18,120.00', price: '$0.06', gross: '$1,087.20', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '6,412.35', price: '$0.17', gross: '$1,090.10', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,939.00', gross: '$5,939.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$65,328.00',
+    totalNet: 'N/A'
+  },
+  // Apr 2026: Compute $52,756 (AWS $5,121, Azure $47,635 incl OpenAI $11,079), Support $5,276
+  'drawdown-apr-2026': {
+    id: 'drawdown-2026-004',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Apr 1 - 30, 2026',
+    postingPeriod: 'Apr 2026',
+    postingDate: 'Apr 30, 2026',
+    billingDate: 'May 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '11,079.00', price: '$1.00', gross: '$11,079.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '88,134.00', price: '$0.25', gross: '$22,033.50', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '121,042.00', price: '$0.06', gross: '$7,262.50', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '20,167.00', price: '$0.36', gross: '$7,260.00', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '12,291.20', price: '$0.25', gross: '$3,072.80', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '17,137.00', price: '$0.06', gross: '$1,028.22', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '5,999.88', price: '$0.17', gross: '$1,019.98', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,276.00', gross: '$5,276.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$58,032.00',
+    totalNet: 'N/A'
+  },
+  // May 2026: Compute $54,224 (AWS $5,455, Azure $48,769 incl OpenAI $13,556), Support $5,422
+  'drawdown-may-2026': {
+    id: 'drawdown-2026-005',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'May 1 - 31, 2026',
+    postingPeriod: 'May 2026',
+    postingDate: 'May 31, 2026',
+    billingDate: 'Jun 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '13,556.00', price: '$1.00', gross: '$13,556.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '84,932.00', price: '$0.25', gross: '$21,233.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '116,333.00', price: '$0.06', gross: '$6,980.00', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '19,444.00', price: '$0.36', gross: '$7,000.00', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '13,094.00', price: '$0.25', gross: '$3,273.50', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '18,192.00', price: '$0.06', gross: '$1,091.52', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '6,411.65', price: '$0.17', gross: '$1,089.98', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,422.00', gross: '$5,422.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$59,646.00',
+    totalNet: 'N/A'
+  },
+  // Jun 2026: Compute $50,475 (AWS $4,642, Azure $45,833 incl OpenAI $11,105), Support $5,048
+  'drawdown-jun-2026': {
+    id: 'drawdown-2026-006',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Jun 1 - 30, 2026',
+    postingPeriod: 'Jun 2026',
+    postingDate: 'Jun 30, 2026',
+    billingDate: 'Jul 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '11,105.00', price: '$1.00', gross: '$11,105.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '83,755.00', price: '$0.25', gross: '$20,938.75', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '114,908.00', price: '$0.06', gross: '$6,894.50', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '19,152.00', price: '$0.36', gross: '$6,894.75', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '11,140.80', price: '$0.25', gross: '$2,785.20', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '15,528.00', price: '$0.06', gross: '$931.68', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '5,442.47', price: '$0.17', gross: '$925.12', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,048.00', gross: '$5,048.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$55,523.00',
+    totalNet: 'N/A'
+  },
+  // Jul 2026: Compute $53,539 (AWS $4,647, Azure $48,892 incl OpenAI $13,385), Support $5,354
+  'drawdown-jul-2026': {
+    id: 'drawdown-2026-007',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Jul 1 - 31, 2026',
+    postingPeriod: 'Jul 2026',
+    postingDate: 'Jul 31, 2026',
+    billingDate: 'Aug 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '13,385.00', price: '$1.00', gross: '$13,385.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '85,622.00', price: '$0.25', gross: '$21,405.50', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '117,512.00', price: '$0.06', gross: '$7,050.72', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '19,586.00', price: '$0.36', gross: '$7,050.78', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '11,152.80', price: '$0.25', gross: '$2,788.20', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '15,480.00', price: '$0.06', gross: '$928.80', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '5,470.59', price: '$0.17', gross: '$930.00', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,354.00', gross: '$5,354.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$58,893.00',
+    totalNet: 'N/A'
+  },
+  // Aug 2026: Compute $55,590 (AWS $5,290, Azure $50,300 incl OpenAI $11,118), Support $5,559
+  'drawdown-aug-2026': {
+    id: 'drawdown-2026-008',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Aug 1 - 31, 2026',
+    postingPeriod: 'Aug 2026',
+    postingDate: 'Aug 31, 2026',
+    billingDate: 'Sep 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '11,118.00', price: '$1.00', gross: '$11,118.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '94,449.00', price: '$0.25', gross: '$23,612.25', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '129,798.00', price: '$0.06', gross: '$7,787.88', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '21,616.00', price: '$0.36', gross: '$7,781.87', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '12,696.00', price: '$0.25', gross: '$3,174.00', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '17,633.00', price: '$0.06', gross: '$1,058.00', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '6,223.53', price: '$0.17', gross: '$1,058.00', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,559.00', gross: '$5,559.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$61,149.00',
+    totalNet: 'N/A'
+  },
+  // Sep 2026: Compute $57,440 (AWS $5,293, Azure $52,147 incl OpenAI $13,786), Support $5,744
+  'drawdown-sep-2026': {
+    id: 'drawdown-2026-009',
+    status: 'Finalized',
+    statusClass: 'finalized',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Sep 1 - 30, 2026',
+    postingPeriod: 'Sep 2026',
+    postingDate: 'Sep 30, 2026',
+    billingDate: 'Oct 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '13,786.00', price: '$1.00', gross: '$13,786.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '92,530.00', price: '$0.25', gross: '$23,132.50', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '127,143.00', price: '$0.06', gross: '$7,628.58', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '21,111.00', price: '$0.36', gross: '$7,599.92', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '12,703.20', price: '$0.25', gross: '$3,175.80', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '17,620.00', price: '$0.06', gross: '$1,057.20', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '6,235.29', price: '$0.17', gross: '$1,060.00', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,744.00', gross: '$5,744.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$63,184.00',
+    totalNet: 'N/A'
+  },
+  // Oct 2026: Compute $53,530 (AWS $5,419, Azure $48,111 incl OpenAI $11,777), Support $5,353
+  'drawdown-oct-2026': {
+    id: 'drawdown-2026-010',
+    status: 'Draft',
+    statusClass: 'draft',
+    billingTag: 'Drawdown Statement',
+    billingTagClass: 'drawdown',
+    billingPeriod: 'Oct 1 - 31, 2026',
+    postingPeriod: 'Oct 2026',
+    postingDate: 'Oct 31, 2026',
+    billingDate: 'Nov 1, 2026',
+    nsIdentifier: '--',
+    nsSalesOrderId: '--',
+    nsClass: 'MC',
+    nsIntegration: 'Will NOT integrate to NetSuite',
+    nsIntegrationClass: 'no-integrate',
+    reseller: '--',
+    isCommit: false,
+    isDrawdown: true,
+    items: [
+      { sku: 'AZURE-OPENAI-SERVING', desc: 'Azure Premium OpenAI Serving Model', cloud: 'Azure', qty: '11,777.00', price: '$1.00', gross: '$11,777.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-COMPUTE', desc: 'Azure Premium All-Purpose Compute', cloud: 'Azure', qty: '87,608.00', price: '$0.25', gross: '$21,902.00', net: 'N/A' },
+      { sku: 'AZURE-PREMIUM-JOBS', desc: 'Azure Premium Jobs Compute', cloud: 'Azure', qty: '120,267.00', price: '$0.06', gross: '$7,216.00', net: 'N/A' },
+      { sku: 'AZURE-SERVERLESS-SQL', desc: 'Azure Premium Serverless SQL', cloud: 'Azure', qty: '20,044.00', price: '$0.36', gross: '$7,216.00', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-COMPUTE', desc: 'AWS Premium All-Purpose Compute', cloud: 'AWS', qty: '13,005.60', price: '$0.25', gross: '$3,251.40', net: 'N/A' },
+      { sku: 'AWS-PREMIUM-JOBS', desc: 'AWS Premium Jobs Compute', cloud: 'AWS', qty: '18,128.00', price: '$0.06', gross: '$1,087.68', net: 'N/A' },
+      { sku: 'AWS-SERVERLESS', desc: 'AWS Premium Serverless Compute', cloud: 'AWS', qty: '6,352.82', price: '$0.17', gross: '$1,079.92', net: 'N/A' },
+      { sku: 'MC-PRODUCTION-SUPPORT', desc: 'MC Production Support', cloud: 'All', qty: '1.00', price: '$5,353.00', gross: '$5,353.00', net: 'N/A' }
+    ],
+    totalItems: 8,
+    totalGross: '$58,883.00',
     totalNet: 'N/A'
   },
   'postpaid-azure-dec': {

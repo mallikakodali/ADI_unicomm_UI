@@ -1276,6 +1276,37 @@ tfoot td {
   border-bottom: 1px solid var(--border-light);
 }
 
+/* Burst Alert Section */
+.ledger-section.burst-alert {
+  background: linear-gradient(135deg, #FEF2F2 0%, #FFF5F5 100%);
+  border: 1px solid #FCA5A5;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.ledger-section.burst-alert .burst-title {
+  color: #DC2626;
+  border-bottom-color: #FECACA;
+}
+
+.pane-row.burst {
+  background: #FEF2F2;
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  margin: 4px -8px;
+}
+
+.pane-row.burst span:first-child {
+  color: #DC2626;
+  font-weight: 600;
+}
+
+.burst-amount {
+  color: #DC2626 !important;
+  font-weight: 700;
+}
+
 /* Pane Note */
 .pane-note {
   font-size: 11px;
@@ -4497,10 +4528,90 @@ td.indent {
   color: #1D4ED8;
 }
 
+.bucket-badge.otd {
+  background: #DCFCE7;
+  color: #166534;
+}
+
 /* Manual Icon in Ledger */
 .manual-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #22C55E;
+}
+
+/* SKU Rates Table */
+.sku-filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.sku-rates-table {
+  background: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.sku-rates-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.sku-rates-table th,
+.sku-rates-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sku-rates-table th {
+  background: var(--bg-light);
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.sku-rates-table th svg {
+  vertical-align: middle;
+  margin-left: 4px;
+  opacity: 0.5;
+}
+
+.sku-rates-table tbody tr:hover {
+  background: #F9FAFB;
+}
+
+.sku-rates-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sku-rates-table .current-col {
+  width: 70px;
+  text-align: center;
+}
+
+.sku-rates-table .price-col {
+  text-align: right;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.current-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: #DCFCE7;
+  color: #16A34A;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
 }
