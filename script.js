@@ -273,7 +273,7 @@ const monthlyData = {
   },
   // Monthly billing values (cumulative)
   // Prepaid at start: Direct $100k, AWS MP $50k, Azure P3 $500k = $650k
-  // In-deal burst: $8,041 (Azure Premium OpenAI exceeds Direct prepaid in Oct)
+  // No in-deal burst since Total Consumption < Total Billed
   billing: {
     'feb-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
     'mar-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
@@ -283,8 +283,8 @@ const monthlyData = {
     'jul-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
     'aug-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
     'sep-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
-    'oct-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 8041, total: 658041 },
-    'all': { direct: 100000, awsMP: 50000, p3: 500000, burst: 8041, total: 658041 }
+    'oct-2026': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 },
+    'all': { direct: 100000, awsMP: 50000, p3: 500000, burst: 0, total: 650000 }
   }
 };
 

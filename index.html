@@ -419,7 +419,7 @@
           <div class="pane-rows">
             <div class="pane-row">
               <span>Total Billed</span>
-              <span>$658,041.00</span>
+              <span>$650,000.00</span>
             </div>
             <div class="pane-row">
               <span>Total Consumption</span>
@@ -427,7 +427,7 @@
             </div>
             <div class="pane-row total">
               <span>Difference (Billed - Consumption)</span>
-              <span>$131,369.00</span>
+              <span>$123,328.00</span>
             </div>
           </div>
 
@@ -474,13 +474,9 @@
                 <span>Azure P3</span>
                 <span>$500,000.00</span>
               </div>
-              <div class="pane-row burst">
-                <span>In-Deal Burst - Direct</span>
-                <span class="burst-amount">$8,041.00</span>
-              </div>
               <div class="pane-row total">
                 <span>Total Billed</span>
-                <span>$658,041.00</span>
+                <span>$650,000.00</span>
               </div>
             </div>
           </div>
@@ -518,15 +514,15 @@
             <div class="pane-rows">
               <div class="pane-row">
                 <span>Total Billed (CTD)</span>
-                <span>$658,041.00</span>
+                <span>$650,000.00</span>
               </div>
               <div class="pane-row">
                 <span>Total Net Consumption (CTD)</span>
                 <span>$526,672.00</span>
               </div>
-              <div class="pane-row total burst">
+              <div class="pane-row total">
                 <span>CTD Status</span>
-                <span class="burst-amount">In-Deal Burst</span>
+                <span>No Burst</span>
               </div>
             </div>
           </div>
@@ -535,9 +531,9 @@
           <div class="recon-pane">
             <h3 class="pane-title">Burst Allocation</h3>
             <div class="pane-rows">
-              <div class="pane-row total burst">
+              <div class="pane-row total">
                 <span>In-Deal Burst</span>
-                <span class="burst-amount">$8,041.00</span>
+                <span>N/A</span>
               </div>
             </div>
           </div>
@@ -1909,7 +1905,7 @@
           <div class="billing-summary-card">
             <div class="summary-card-header">
               <h4>Invoices by Type</h4>
-              <span class="summary-total">$158,041.00</span>
+              <span class="summary-total">$150,000.00</span>
             </div>
             <div class="summary-breakdown">
               <div class="summary-row">
@@ -1917,12 +1913,6 @@
                   <span class="tag prepaid-tag small">Prepaid</span>
                 </span>
                 <span class="summary-value">$150,000.00</span>
-              </div>
-              <div class="summary-row">
-                <span class="summary-label">
-                  <span class="tag in-deal small">In-deal Burst</span>
-                </span>
-                <span class="summary-value">$8,041.00</span>
               </div>
             </div>
           </div>
@@ -1947,12 +1937,12 @@
           <div class="billing-summary-card total-card">
             <div class="summary-card-header">
               <h4>Total Billed (CTD)</h4>
-              <span class="summary-total large">$658,041.00</span>
+              <span class="summary-total large">$650,000.00</span>
             </div>
             <div class="summary-breakdown">
               <div class="summary-row">
                 <span class="summary-label">Invoices</span>
-                <span class="summary-value">$158,041.00</span>
+                <span class="summary-value">$150,000.00</span>
               </div>
               <div class="summary-row">
                 <span class="summary-label">Uncontrollable Payments</span>
@@ -1988,7 +1978,6 @@
           <select class="filter-dropdown">
             <option value="">Tags</option>
             <option>Prepaid</option>
-            <option>In-deal Burst</option>
           </select>
           <select class="filter-dropdown">
             <option value="">Billing Channel</option>
@@ -2045,23 +2034,6 @@
                 <td><span class="status-tag finalized">Finalized</span></td>
                 <td class="amount">$50,000.00</td>
                 <td class="amount">$50,000.00</td>
-              </tr>
-
-              <!-- In-Deal Burst - Azure Premium OpenAI exceeds Direct prepaid -->
-              <tr>
-                <td></td>
-                <td class="period-cell">
-                  <a href="#" class="period-link" onclick="openBillingDetail(event, 'indeal-burst-oct')">Oct 1 - 31, 2026</a>
-                  <span class="adjustments-count">(0 adjustments)</span>
-                </td>
-                <td>Oct 31, 2026</td>
-                <td>Nov 1, 2026</td>
-                <td><span class="tag in-deal">In-deal Burst</span></td>
-                <td>Burst</td>
-                <td>Direct</td>
-                <td><span class="status-tag draft">Draft</span></td>
-                <td class="amount">$8,041.00</td>
-                <td class="amount">$8,041.00</td>
               </tr>
 
               <!-- Drawdown Statements - Feb 2026 to Oct 2026 -->
